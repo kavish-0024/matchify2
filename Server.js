@@ -42,14 +42,14 @@ mySqlVen.connect(function (err) {
 });
 
 app.post("/signup", function (req, resp) {
-  console.log("Hey here");
+ // console.log("Hey here");
   let emailid = req.body.SignuptxtEmail;
   let pwd = req.body.SignuptxtPwd;
   let usertype = req.body.SignupinputUserType;
 
-  console.log(emailid);
-  console.log(pwd);
-  console.log(usertype);
+  //console.log(emailid);
+  //console.log(pwd);
+  //console.log(usertype);
 
 mySqlVen.query(
     "insert into users values(?,?,?,current_date(),1)",
@@ -67,7 +67,7 @@ mySqlVen.query(
 //======================= TO CHECK SERVER DATA SAVE =========================
 app.get("/all", function (req, resp) {
   mySqlVen.query("select * from users", function (err, result) {
-    console.log(result);
+    //console.log(result);
     resp.send(result);
   });
 });
@@ -106,7 +106,7 @@ app.post("/org-details",async function (req,resp)
 
       await cloudinary.uploader.upload(fullPath).then(function(picurlresult){
         picurl=picurlresult.url;
-        console.log(picurl);
+        //console.log(picurl);
       })
     } 
     else
@@ -124,7 +124,7 @@ app.post("/org-details",async function (req,resp)
     let contact=req.body.orgDetailtxtContact;
     let bio=req.body.orgDetailtxtBio;
 
-    console.log(picurl);
+    //console.log(picurl);
 
     mySqlVen.query(
     "insert into organizers values(?,?,?,?,?,?,?,?,?,?,?,?)",
@@ -154,7 +154,7 @@ app.post("/update-org-details",async function (req,resp)
 
       await cloudinary.uploader.upload(fullPath).then(function(picurlresult){
         picurl=picurlresult.url;
-        console.log(picurl);
+        //console.log(picurl);
       })
     } 
     else
@@ -172,7 +172,7 @@ app.post("/update-org-details",async function (req,resp)
     let contact=req.body.orgDetailtxtContact;
     let bio=req.body.orgDetailtxtBio;
 
-    console.log(picurl);
+    //console.log(picurl);
 
     mySqlVen.query(
     "update organizers set orgname=?,registrationnumber=?,address=?,city=?,sports=?,head=?,website=?,instagram=?,contact=?,picurl=?,bio=? where emailid=?",
@@ -243,8 +243,8 @@ app.post("/tournament-register",function(req,resp){
   let prize=req.body.tourDetailnumPrize;
   let contact=req.body.tourDetailtxtContact;
 
-  console.log(contact);
-  console.log(emailid);
+  //console.log(contact);
+  //console.log(emailid);
 
   mySqlVen.query("insert into tournaments values(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",[emailid,event,doe,toe,address,city,sports,minage,maxage,lastdate,lasttime,fee,prize,contact],function(err){
     if(err==null)
@@ -280,7 +280,7 @@ app.get("/do-fetch-all-users",function(req,resp)
 app.get("/delete-one",function(req,resp)
 {
     
-    console.log(req.query)
+    //console.log(req.query)
     let rid=req.query.ridno;
 
 
@@ -340,16 +340,16 @@ app.post("/player-details",async function (req,resp)
       {
         aadharurl=picurlresult.url;
         let jsonData=await RajeshBansalKaChirag(picurlresult.url)
-        console.log(jsonData);
-        console.log(jsonData.name);
+        //console.log(jsonData);
+        //console.log(jsonData.name);
         allo=jsonData;
-        console.log(allo);
-        console.log(allo.name);
+        //console.log(allo);
+        //console.log(allo.name);
       })
       }
       catch(err)
       {
-        console.log(err.message);
+        //console.log(err.message);
       }
     } 
     else
@@ -381,9 +381,9 @@ app.post("/player-details",async function (req,resp)
     let contact=req.body.playerDetailContact;
     let bio=req.body.playerDetailtxtBio;
 
-    console.log(emailid);
-    console.log(allo.date);
-    console.log(allo.adhhar_number);
+    //console.log(emailid);
+    //console.log(allo.date);
+    //console.log(allo.adhhar_number);
     mySqlVen.query(
     "insert into players values(?,?,?,?,?,?,?,?,?,?,?)",
     [emailid,aadharurl,profileurl,name,dob,gender,aadharnum,address,sports,contact,bio],
@@ -485,7 +485,7 @@ app.get("/unblock-user",function(req,resp)
 //====================TOURNAMENT SHOWING TO PLAYERS===========
 app.get("/do-fetch-all-users-players",function(req,resp)
 {
-  console.log(req.query);
+  //console.log(req.query);
         mySqlVen.query("select * from tournaments where city=? and sports=? ",[req.query.kuchCity,req.query.kuchGame],function(err,allRecords)
         {
                     resp.send(allRecords);
@@ -502,7 +502,7 @@ app.get("/do-fetch-all-cities",function(req,resp)
 //============================SETTING IN PLAYER DASH===============
 app.get("/do-update",function(req,resp)
 {
-  console.log(req.query);
+  //console.log(req.query);
         mySqlVen.query("update users set pwd=? where emailid=? and pwd=? ",[req.query.kuchnewpwd,req.query.kuchemail,req.query.kucholdpwd],function(err,allRecords)
         {
           if(err==null)

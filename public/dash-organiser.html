@@ -27,6 +27,18 @@
                 location.href="index.html";
             }
         </script>
+        <style>
+                    .card {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease-in-out;
+            transform: translateY(0);
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            transform: translateY(-5px);
+        }
+        </style>
 </head>
 
 <body onload="showUser()">
@@ -41,6 +53,13 @@
         
     </nav>
     <br><br>
+    <div class="container my-4 p-4 bg-light rounded shadow-sm"> <div class="text-center">
+            <h1 class="display-5 fw-bold mb-3">Organizer Hub</h1>
+            <p class="lead text-muted mx-auto" style="max-width: 800px;">
+                Welcome to your Organizer Hub, the ultimate command center designed to streamline every aspect of your sports tournaments. This intuitive dashboard empowers you to effortlessly manage your organization's details, seamlessly register new events, and gain complete oversight of all your ongoing tournaments. It's your personal playbook to simplify the complex world of sports event management.
+            </p>
+        </div>
+    </div>
 
 <div class="container">
     <div class="card mb-3">
@@ -48,7 +67,7 @@
         <div class="card-body">
             <center>
                 <h5 class="card-title">Organisation Details</h5>
-                <p class="card-text">You can view and edit your organisation details here</p>
+                <p class="card-text">Manage and update your organization's core information. Ensure all details are current for smooth tournament operations.Access and modify your organization's registration, contact, and administrative information. Maintaining accurate details is key to successful event hosting.</p>
                 <button type="button" class="btn btn-info">
                     <a href="org-details.html" style="color: black; text-decoration: none;">Details</a>
                 </button>
@@ -61,7 +80,7 @@
         <div class="card-body">
             <center>
                 <h5 class="card-title">Tournament Registration</h5>
-                <p class="card-text">You can register new tournaments here</p>
+                <p class="card-text">Ready to host? Here's where you register, customize, and publish all your new tournaments. Your next great event starts here.</p>
                 <button type="button" class="btn btn-info">
                     <a href="post-tournament.html" style="color: black; text-decoration: none;">New</a>
                 </button>
@@ -74,7 +93,7 @@
         <div class="card-body">
             <center>
                 <h5 class="card-title">Tournament Management</h5>
-                <p class="card-text">You can manage all your tournaments here</p>
+                <p class="card-text">Oversee and manage all your ongoing and past tournaments in one place.</p>
                 <button type="button" class="btn btn-info">
                     <a href="tournament-manager.html" style="color: black; text-decoration: none;">View</a>
                 </button>

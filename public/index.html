@@ -128,39 +128,39 @@
                 }
             })
 
-            //==VAlidation for Login email=====
-            $("#LogintxtEmail").blur(function () {
-                let email = $(this).val();
-                email = email.trim()// removes space from front and back
-                let regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+            // //==VAlidation for Login email=====
+            // $("#LogintxtEmail").blur(function () {
+            //     let email = $(this).val();
+            //     email = email.trim()// removes space from front and back
+            //     let regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
-                if (email == "") {
-                    $("#LogintxtEmailErr").html("Please enter a email id").addClass("notok").removeClass("ok");
-                    $(this).focus();
-                }
-                else if (regex.test(email) == false) {
-                    $("#LogintxtEmailErr").html("Please enter a valid email id").addClass("notok").removeClass("ok");
-                    $(this).focus();
-                }
-                else
-                    $("#LogintxtEmailErr").html("Valid Email").addClass("ok").removeClass("notok");
+            //     if (email == "") {
+            //         $("#LogintxtEmailErr").html("Please enter a email id").addClass("notok").removeClass("ok");
+            //         $(this).focus();
+            //     }
+            //     else if (regex.test(email) == false) {
+            //         $("#LogintxtEmailErr").html("Please enter a valid email id").addClass("notok").removeClass("ok");
+            //         $(this).focus();
+            //     }
+            //     else
+            //         $("#LogintxtEmailErr").html("Valid Email").addClass("ok").removeClass("notok");
 
-            })
+            // })
 
-            //============VAlidation for login password
-            $("#LogintxtPwd").blur(function () {
-                let regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
-                let pwd = $(this).val();
-                pwd = pwd.trim();
-                if (regex.test(pwd) == true) {
-                    $("#LogintxtPwdErr").html("Valid Password").addClass("ok").removeClass("notok");
-                    $(this).focus();
-                }
-                else {
-                    $("#LogintxtPwdErr").html("Please Enter a valid password").addClass("notok").removeClass("ok");
-                    $(this).focus();
-                }
-            })
+            // //============VAlidation for login password
+            // $("#LogintxtPwd").blur(function () {
+            //     let regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
+            //     let pwd = $(this).val();
+            //     pwd = pwd.trim();
+            //     if (regex.test(pwd) == true) {
+            //         $("#LogintxtPwdErr").html("Valid Password").addClass("ok").removeClass("notok");
+            //         $(this).focus();
+            //     }
+            //     else {
+            //         $("#LogintxtPwdErr").html("Please Enter a valid password").addClass("notok").removeClass("ok");
+            //         $(this).focus();
+            //     }
+            // })
             //=======================EYE IN SIGNUP=========
             $("#eye1").click(function () {
                 let txt = $("#SignuptxtPwd").prop("type");
