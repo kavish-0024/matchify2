@@ -14,7 +14,9 @@
         integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 
     <script>
@@ -160,33 +162,29 @@
                 }
             })
             //=======================EYE IN SIGNUP=========
-            $("#eye1").click(function(){
-                let txt=$("#SignuptxtPwd").prop("type");
-                
-                if(txt=="password")
-                {
-                    $("#SignuptxtPwd").prop("type","text");
+            $("#eye1").click(function () {
+                let txt = $("#SignuptxtPwd").prop("type");
+
+                if (txt == "password") {
+                    $("#SignuptxtPwd").prop("type", "text");
                     $("#eye1").removeClass("fa-eye").addClass("fa-eye-slash");
                 }
-                else
-                {
-                    $("#SignuptxtPwd").prop("type","password");
+                else {
+                    $("#SignuptxtPwd").prop("type", "password");
                     $("#eye1").removeClass("fa-eye-slash").addClass("fa-eye");
                 }
 
             })
             //=======================EYE IN LOGIN=========
-            $("#eye2").click(function(){
-                let txt=$("#LogintxtPwd").prop("type");
-                
-                if(txt=="password")
-                {
-                    $("#LogintxtPwd").prop("type","text");
+            $("#eye2").click(function () {
+                let txt = $("#LogintxtPwd").prop("type");
+
+                if (txt == "password") {
+                    $("#LogintxtPwd").prop("type", "text");
                     $("#eye2").removeClass("fa-eye").addClass("fa-eye-slash");
                 }
-                else
-                {
-                    $("#LogintxtPwd").prop("type","password");
+                else {
+                    $("#LogintxtPwd").prop("type", "password");
                     $("#eye2").removeClass("fa-eye-slash").addClass("fa-eye");
                 }
             })
@@ -226,18 +224,35 @@
             font-size: 3rem;
             color: var(--bs-primary);
         }
+
         /* Mission */
-                /* Custom CSS for the section */
+        /* Custom CSS for the section */
         .section-title {
             text-align: center;
             margin-bottom: 4rem;
             font-weight: 600;
         }
-        
+
         .mission-image {
             object-fit: cover;
             height: 100%;
             border-radius: .5rem;
+        }
+
+        /* Style for eye */
+        #eye1,
+        #eye2 {
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #6c757d;
+        }
+
+        #SignuptxtPwd,
+        #LogintxtPwd {
+            padding-right: 40px;
         }
     </style>
 </head>
@@ -359,43 +374,54 @@
         </div>
     </section>
 
-    
+
     <!-- =================================== OUR MISSION SECTION ========================================= -->
     <section id="mission" class="py-5">
         <div class="container">
             <h2 class="section-title">Our Mission</h2>
             <div class="row align-items-center">
                 <div class="col-lg-6 mb-4 mb-lg-0">
-                    <img src="https://images.pexels.com/photos/163452/basketball-dunk-blue-game-163452.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="img-fluid mission-image shadow" alt="A basketball player dunking a ball, representing sports spirit.">
+                    <img src="https://images.pexels.com/photos/163452/basketball-dunk-blue-game-163452.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                        class="img-fluid mission-image shadow"
+                        alt="A basketball player dunking a ball, representing sports spirit.">
                 </div>
                 <div class="col-lg-6">
                     <h3>Fostering Community Through Competition</h3>
-                    <p class="lead text-muted">Our mission is to break down barriers and make sports accessible to everyone. We believe in the power of friendly competition to build character, foster teamwork, and create lasting connections within the community.</p>
-                    <p>Matchify is the digital bridge for that mission. By providing a seamless, centralized platform for organizers and players, we empower local communities to come together, celebrate sportsmanship, and share their passion for the game.</p>
+                    <p class="lead text-muted">Our mission is to break down barriers and make sports accessible to
+                        everyone. We believe in the power of friendly competition to build character, foster teamwork,
+                        and create lasting connections within the community.</p>
+                    <p>Matchify is the digital bridge for that mission. By providing a seamless, centralized platform
+                        for organizers and players, we empower local communities to come together, celebrate
+                        sportsmanship, and share their passion for the game.</p>
                 </div>
             </div>
         </div>
     </section>
-        <!-- =================================== MEET DEVELOPERS SECTION ========================================= -->
+    <!-- =================================== MEET DEVELOPERS SECTION ========================================= -->
     <section id="developers" class="py-5">
         <div class="container">
             <h2 class="section-title">Meet The Team</h2>
             <div class="row g-4 justify-content-center">
-                
+
                 <!-- Developer 1 -->
                 <div class="col-md-6 col-lg-4">
                     <div class="card dev-card border-0 text-center shadow-sm h-100">
                         <div class="card-body d-flex flex-column align-items-center">
                             <p class="text-muted"><strong>Made by</strong></p>
-                            <img src="./pics/profilepicicon.jpg" alt="Developer 1" class="rounded-circle mt-n5 mb-3" style="width: 200px;height: 200px;" >
+                            <img src="./pics/profilepicicon.jpg" alt="Developer 1" class="rounded-circle mt-n5 mb-3"
+                                style="width: 200px;height: 200px;">
                             <h5 class="card-title">Kavish Garg</h5>
                             <p>Dr B R Ambedkar National Institute of Technology Jalandhar</p>
-                            <p>Electronics and VLSI</p>
-                            <p>2024-2028</p>
+                            <p>Electronics and VLSI(2024-2028)</p>
+                            <p>Moving up the stack from logic gates to React components.</p>
                             <div class="mt-auto">
-                                <a href="https://www.instagram.com/kavish_0024?igsh=MWM4dDduYWgwbnZreQ==" class="text-dark mx-1"><i class="bi bi-instagram"></i></a>
-                                <a href="https://www.linkedin.com/in/kavish0024?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="text-dark mx-1"><i class="bi bi-linkedin"></i></a>
-                                <a href="https://github.com/kavish-0024" class="text-dark mx-1"><i class="bi bi-github"></i></a>
+                                Stay connected:
+                                <a href="https://www.instagram.com/kavish_0024?igsh=MWM4dDduYWgwbnZreQ=="
+                                    class="text-dark mx-1"><i class="bi bi-instagram"></i></a>
+                                <a href="https://www.linkedin.com/in/kavish0024?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+                                    class="text-dark mx-1"><i class="bi bi-linkedin"></i></a>
+                                <a href="https://github.com/kavish-0024" class="text-dark mx-1"><i
+                                        class="bi bi-github"></i></a>
                             </div>
                         </div>
                     </div>
@@ -406,15 +432,23 @@
                     <div class="card dev-card border-0 text-center shadow-sm h-100">
                         <div class="card-body d-flex flex-column align-items-center">
                             <p class="text-muted"><strong>Under the guidance of</strong></p>
-                             <img src="./pics/Sirpic.jpg"  alt="Developer 2" class="rounded-circle mt-n5 mb-3" style="width: 200px;height: 200px;" >
+                            <img src="./pics/Sirpic.jpg" alt="Developer 2" class="rounded-circle mt-n5 mb-3"
+                                style="width: 200px;height: 200px;">
                             <h5 class="card-title">Rajesh Bansal</h5>
                             <p>Author of Real Java</p>
                             <p>Founder of Banglore Computer Education</p>
-                            <a href="https://www.realjavaonline.com/" style="text-decoration: none;color: black;"><p>Website Link-www.realjavaonline.com</p></a>
+                            <p>24 Years experience in Training & Development</p>
+                            <a href="https://www.realjavaonline.com/" style="text-decoration: none;color: black;">
+                                <p>Website Link-www.realjavaonline.com</p>
+                            </a>
                             <div class="mt-auto">
-                                <a href="https://www.instagram.com/author_rajesh_bansal?igsh=ZjdiOThid281ajBh" class="text-dark mx-1"><i class="bi bi-instagram"></i></a>
-                                <a href="https://www.linkedin.com/in/rajesh-bansal-8a87251a/" class="text-dark mx-1"><i class="bi bi-linkedin"></i></a>
-                                <a href="https://x.com/banglorecompute" class="text-dark mx-1"><i class="bi bi-twitter-x"></i></a>
+                                Stay informed: 
+                                <a href="https://www.instagram.com/author_rajesh_bansal?igsh=ZjdiOThid281ajBh"
+                                    class="text-dark mx-1"><i class="bi bi-instagram"></i></a>
+                                <a href="https://www.linkedin.com/in/rajesh-bansal-8a87251a/" class="text-dark mx-1"><i
+                                        class="bi bi-linkedin"></i></a>
+                                <a href="https://x.com/banglorecompute" class="text-dark mx-1"><i
+                                        class="bi bi-twitter-x"></i></a>
                             </div>
                         </div>
                     </div>
@@ -442,7 +476,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="contactMessage" class="form-label">Message</label>
-                            <textarea class="form-control" id="contactMessage" rows="12" required></textarea>
+                            <textarea class="form-control" id="contactMessage" rows="10" required></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Send Message</button>
                     </form>
@@ -451,24 +485,28 @@
                 <!-- Right Column: Contact Info & Map -->
                 <div class="col-lg-6">
                     <h4>Contact Information</h4>
-                    <p>Have questions? We'd love to hear from you. Reach out to us through any of the channels below.</p>
+                    <p>Have questions? We'd love to hear from you. Reach out to us through any of the channels below.
+                    </p>
                     <ul class="list-unstyled">
-                        <li class="mb-3">
+                        <!-- <li class="mb-3">
                             <i class="bi bi-geo-alt-fill text-primary me-2"></i>
                             Address
-                        </li>
+                        </li> -->
                         <li class="mb-3">
                             <i class="bi bi-telephone-fill text-primary me-2"></i>
-                            Phone
+                            +91-7814669417
                         </li>
                         <li class="mb-3">
                             <i class="bi bi-envelope-fill text-primary me-2"></i>
-                            Mail
+                            kavishlegend@gmail.com
                         </li>
                     </ul>
                     <!-- Google Maps-->
                     <div class="ratio ratio-16x9">
-                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3405.662272085347!2d75.5358439!3d31.395874600000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391a51d30c180edf%3A0x5b7633718d17ef33!2sDr%20B%20R%20Ambedkar%20National%20Institute%20of%20Technology%20Jalandhar!5e0!3m2!1sen!2sin!4v1752999919032!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3405.662272085347!2d75.5358439!3d31.395874600000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391a51d30c180edf%3A0x5b7633718d17ef33!2sDr%20B%20R%20Ambedkar%20National%20Institute%20of%20Technology%20Jalandhar!5e0!3m2!1sen!2sin!4v1752999919032!5m2!1sen!2sin"
+                            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
             </div>
@@ -484,7 +522,7 @@
     <nav class="navbar bg-white fixed-bottom">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                 &copy; 2025 Matchify. All Rights Reserved.
+                &copy; 2025 Matchify. All Rights Reserved.
             </a>
         </div>
     </nav>
@@ -508,12 +546,13 @@
                             <div id="SignuptxtEmailErr"></div>
                         </div>
                         <div class="mb-3">
-                            <label for="txtPwd" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="SignuptxtPwd" name="SignuptxtPwd">
-                            <i class="fa-solid fa-eye fa-bounce" id="eye1"></i>
+                            <label for="SignuptxtPwd" class="form-label">Password</label>
+                            <div class="position-relative">
+                                <input type="password" class="form-control" id="SignuptxtPwd" name="SignuptxtPwd">
+                                <i class="fa-solid fa-eye" id="eye1"></i>
+                            </div>
                             <div id="SignuptxtPwdErr"></div>
                         </div>
-
                         <div class="mb-3 form-check">
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
@@ -555,9 +594,11 @@
                             <div id="LogintxtEmailErr"></div>
                         </div>
                         <div class="mb-3">
-                            <label for="txtPwd" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="LogintxtPwd" name="LogintxtPwd">
-                            <i class="fa-solid fa-eye fa-bounce" id="eye2"></i>
+                            <label for="LogintxtPwd" class="form-label">Password</label>
+                            <div class="position-relative">
+                                <input type="password" class="form-control" id="LogintxtPwd" name="LogintxtPwd">
+                                <i class="fa-solid fa-eye" id="eye2"></i>
+                            </div>
                             <div id="LogintxtPwdErr"></div>
                         </div>
                     </form>
