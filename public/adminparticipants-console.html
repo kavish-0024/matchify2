@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.3/angular.min.js"></script>
+    <title>Matchify</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+        crossorigin="anonymous"></script>
+
+    <script>
+        var mymodule = angular.module("kuchModule", []);
+        mymodule.controller("kuchController", function ($scope, $http) {
+
+            $scope.jsonArray = [];
+            $scope.doFetchAll = function () {
+                var url = "/do-fetch-all-users-participants";
+
+
+                $http.get(url).then(allGoodFx, someBadFx);
+                function allGoodFx(response) {
+                    //resp in JSON array
+                    //alert(JSON.stringify(response.data));
+                    $scope.jsonArray = response.data;
+                }
+
+                function someBadFx(response) {
+                    alert(JSON.stringify(response.data));
+                }
+            }
+            //=====================
+            $scope.onRecord = {};
+            $scope.doShowDetails = function (index) 
+            {
+               //alert(JSON.stringify($scope.jsonArray[index]))
+                $scope.onRecord=$scope.jsonArray[index];
+            }
+
+        })
+
+    </script>
+                        <script>
+            function showUser()
+            {
+                
+                let activeUser=localStorage.getItem("activeUser");
+                //alert(activeUser)
+                document.getElementById("welcome").innerHTML=activeUser;
+            }
+        </script>
+</head>
+
+<body ng-app="kuchModule" ng-controller="kuchController" ng-init="doFetchAll()" onload="showUser()">
+        <nav class="navbar bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#" style="color: white;">
+                <img src="./pics/logo.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+                Matchify
+            </a>
+            <div class="me-5" style="color: white;">Welcome <span id="welcome"></span></div>
+        </div>
+    </nav>
+
+    <center>
+        <h1>All Participants</h1>
+    </center>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3  p-3 mb-2" ng-repeat="obj in jsonArray">
+                <div class="card">
+                    <div class="card-body">
+                        <img src={{obj.profileurl}} height="150" class="card-img-top" alt="..." />
+
+                        <h5 class="card-title">
+                            <center>
+                            {{obj.name}}
+                            </center>
+                        </h5>
+                        <p class="card-text">
+                            <center>
+                                {{obj.emailid}}
+                            </center>
+                            
+                        </p>
+                        <center>
+                        <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#detailsModal"
+                            ng-click="doShowDetails($index);">
+                            More Info
+                        </a>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <nav class="navbar bg-white fixed-bottom" >
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                &copy; Rights Reserved
+            </a>
+        </div>
+    </nav>
+
+    <!-- ************************** -->
+
+<!-- Modal -->
+<div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Player Details</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <center>
+            <p> <b>Aadhar Pic</b>    </p>
+        <p>          
+            <a href={{onRecord.aadharurl}}> 
+                <img src={{onRecord.aadharurl}} width="200" height="100">
+            </a>
+        </p>
+        </center>
+        <p>
+            <b>Name:</b> {{onRecord.name}}
+        </p>
+
+        <p>
+            <b>EmailId:</b> {{onRecord.emailid}}
+        </p>
+
+        <p>
+            <b>DOB:</b> {{onRecord.dob}}
+        </p>
+
+        <p>
+            <b>Gender:</b> {{onRecord.gender}}
+        </p>
+
+        <p>
+            <b>Aadhar Number:</b> {{onRecord.aadharnum}}
+        </p>
+
+        <p>
+            <b>Address:</b> {{onRecord.address}}
+        </p>
+
+        <p>
+            <b>Sport:</b> {{onRecord.sports}}
+        </p>
+
+        <p>
+            <b>Contact:</b> {{onRecord.contact}}
+        </p>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</body>
+
+
+</html>

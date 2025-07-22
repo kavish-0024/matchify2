@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matchify</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <script>
+        function showPrev(fileRef, prevRef) {
+            const [file] = fileRef.files
+            if (file) {
+                prevRef.src = URL.createObjectURL(file)
+            }
+        }
+
+    </script>
+    <script>
+        $(document).ready(function () {
+
+            $("#playerDetailSearch").click(function () {
+                let obj = {
+                    type: "get",
+                    url: "/playerdetail-search",
+                    data: {
+                        playerDetailtxtEmail: $("#playerDetailtxtEmail").val()
+                    }
+                }
+                $.ajax(obj).then(
+                    function (response) 
+                    {
+                        //alert(JSON.stringify(response));
+                        let aadharurl= response[0].aadharurl;
+                        let profileurl =response[0].profileurl;
+                        let name=response[0].name;
+                        let dob =response[0].dob;
+                        let gender=response[0].gender;
+                        let aadharnum=response[0].aadharnum
+                        let address = response[0].address;
+                        let sports = response[0].sports;
+                        let contact = response[0].contact;
+                        let bio = response[0].bio;
+                        
+                        //alert(aadharurl);
+
+                        
+                        $("#playerDetailtxtName").val(name);
+                        $("#playerDetailDate").val(dob);
+                        $("#playerDetailtxtGender").val(gender);
+                        $("#playerDetailtxtAadharnum").val(aadharnum);
+                        $("#playerDetailtxtAddress").val(address);
+                        $("#playerDetailSports").val(sports);
+                        $("#playerDetailContact").val(contact);
+                        $("#playerDetailtxtBio").val(bio);
+
+                         $("#prevAadhar").prop("src",aadharurl);
+                        // $("#hdnAadhar").val(aadharurl);
+                        $("#prevProfile").prop("src",profileurl);
+                        // $("#hdnProfile").val(profileurl);
+                    }
+                ).fail(function (err) { alert(err.message) })
+            })
+            //=========================
+            $("#playerDetailtxtEmail").blur(function(){
+                let obj={
+                    type:"get",
+                    url:"/chk-playerdetail-email",
+                    data:{
+                        playerDetailtxtEmail:$("#playerDetailtxtEmail").val()
+                    }
+                }
+                 $.ajax(obj).then(function(response){
+                        //alert(response)
+                        $("#playerDetailErrEmail").html(response)
+                   }).fail(function(err){
+                        alert(err);
+                   }) 
+            })
+            //==========================
+           $(document).ajaxStart(function(){
+                $("#waiting").css("display","block");
+           })
+           $(document).ajaxStop(function(){
+                $("#waiting").css("display","none");
+           })
+        })
+    </script>
+    <style>
+        #waiting{
+            padding: 50px;
+            font-size: 60px; color: red;
+            /* border: 1px black solid; */
+            /* background-image: url(./pics/modisaab.jpg); */
+            /* background-size: contain;  */
+            position: fixed;
+            left: 45%; top: 40%; 
+            /* border-radius: 50%; */
+            display: none;
+            text-align: center;
+        }
+    </style>
+            <script>
+            function showUser()
+            {
+                
+                let activeUser=localStorage.getItem("activeUser");
+                //alert(activeUser)
+                document.getElementById("welcome").innerHTML=activeUser;
+                document.getElementById("playerDetailtxtEmail").value=activeUser;
+            }
+        </script>
+</head>
+
+<body onload="showUser()">
+
+        <nav class="navbar bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#" style="color: white;">
+                <img src="./pics/logo.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+                Matchify
+            </a>
+            <div class="me-5" style="color: white;">Welcome <span id="welcome"></span></div>
+        </div>
+    </nav>
+    <br><br>
+        <div id="waiting">
+            <i class="fa-solid fa-hourglass-start fa-spin"></i>
+    </div>
+    <div
+        style="background-color:rgb(169, 148, 148); width: 60%;height:100%;margin-left: 20%;padding-top: 20px;border: 2px black solid;border-radius: 10px;">
+        <center>
+            <h2>Player Details</h2>
+        </center>
+        <form action="/player-details" method="post" enctype="multipart/form-data">
+
+            <input type="hidden" id="hdnAadhar" name="hdnAadhar">
+            <input type="hidden" id="hdnProfile" name="hdnProfile">
+
+            <div class="row mb-3" style="padding-left: 20px; padding-right: 20px;">
+                <label for="playerDetailtxtEmail"
+                    class="form-label" style="font-weight: bolder;margin-top: 40px;margin-left: 5px;" >Email
+                    address</label>
+                <input type="text" class="form-control" id="playerDetailtxtEmail" name="playerDetailtxtEmail"
+                    placeholder="name@example.com" style="margin-top: -5px;width: 70%;margin-left: 23px;"  readonly>
+
+                <div class="col-md-1">
+                <input type="button" value="Get Data" id="playerDetailSearch">
+                </div>
+
+                <span id="playerDetailErrEmail"></span>
+            </div>
+
+        <div class="row mb-3" style="padding-left: 20px; padding-right: 20px;">
+            <div class="col-md-6" style="padding-left: 20px; padding-right: 20px;">
+                <label for="formFile" class="form-label" style="font-weight: bolder;margin-left: 5px;">Aadhar Front Page(one with your photo)</label>
+                <input class="form-control" type="file" id="playerDetailAadharPic" name="playerDetailAadharPic"
+                    style="margin-top: -5px;margin-bottom: 30px;" required onchange="showPrev(playerDetailAadharPic,prevAadhar)">
+                <img src="./pics/upload.jpg" width="100%" height="200" id="prevAadhar" alt="" style="margin-left: 0px;">
+            </div>
+
+            <div class="col-md-6" style="padding-left: 20px; padding-right: 20px;">
+                <label for="formFile" class="form-label" style="font-weight: bolder;margin-left: 5px;">Profile Pic</label>
+                <input class="form-control" type="file" id="playerDetailProfilePic" name="playerDetailProfilePic"
+                    style="margin-top: -5px;margin-bottom: 30px;" required onchange="showPrev(playerDetailProfilePic,prevProfile)">
+                <img src="./pics/upload.jpg" width="100%" height="200" id="prevProfile" alt="" style="margin-left: 0px;">
+            </div>
+        </div>
+
+
+            <div class="row mb-3" style="padding-left: 20px; padding-right: 20px;">
+                <div class="col-md-4"> <label for="orgDetailtxtOrgname" class="form-label"
+                        style="font-weight: bolder;">Name</label>
+                    <input type="text" class="form-control" id="playerDetailtxtName" name="playerDetailtxtName"
+                        style="margin-top: -5px;" disabled  required>
+                </div>
+
+
+                <div class="col-md-4"> <label for="orgDetailtxtRe" class="form-label"
+                        style="font-weight: bolder;">DOB</label>
+                    <input type="date" class="form-control" id="playerDetailDate" name="playerDetailDate"
+                        style="margin-top: -5px;" disabled  required>
+                </div>
+
+                <div class="col-md-4"> <label for="orgDetailtxtRegNo" class="form-label"
+                        style="font-weight: bolder;">Gender</label>
+                    <input type="text" class="form-control" id="playerDetailtxtGender" name="playerDetailtxtGender"
+                        style="margin-top: -5px;" disabled  required>
+                </div>
+            </div>
+
+            <div class="row mb-3" style="padding-left: 20px; padding-right: 20px;">
+                <div class="col-md-6"> <label for="orgDetailtxt" class="form-label"
+                        style="font-weight: bolder;">Aadhar Number</label>
+                    <input type="text" class="form-control" id="playerDetailtxtAadharnum" name="playerDetailtxtAadharnum" ;
+                        style="margin-top: -5px;" disabled  required>
+                </div>
+            </div>
+
+            <div class="row mb-3" style="padding-left: 20px; padding-right: 20px;">
+                <div class="col-md-12"> <label for="orgDetailtxtOrgname" class="form-label"
+                        style="font-weight: bolder;">Address</label>
+                    <input type="text" class="form-control" id="playerDetailtxtAddress" name="playerDetailtxtAddress" ;
+                        style="margin-top: -5px;"  required>
+                </div>
+            </div>
+
+            <div class="row mb-3" style="padding-left: 20px; padding-right: 20px;">
+                <div class="col-md-6">
+                    <label for="orgDetailtxtOrgname" class="form-label" style="font-weight: bolder;">Select the sport</label>
+                    <select class="form-select" id="playerDetailSports" name="playerDetailSports" required>
+                        <option selected>Choose</option>
+                        <option value="Athletics">Athletics</option>
+                        <option value="Badminton">Badminton</option>
+                        <option value="Basketball">Basketball</option>
+                        <option value="Chess">Chess</option>
+                        <option value="Cricket">Cricket</option>
+                        <option value="Football">Football</option>
+                        <option value="Hockey">Hockey</option>
+                        <option value="Kabaddi">Kabaddi</option>
+                        <option value="Tennis">Tennis</option>
+                        <option value="Volleyball">Volleyball</option>
+                    </select>
+                </div>
+
+                <div class="col-md-6"> <label for="orgDetailtxtRegNo" class="form-label"
+                        style="font-weight: bolder;">Contact Details</label>
+                    <input type="text" class="form-control" id="playerDetailContact" name="playerDetailContact"
+                        style="margin-top: -5px;"  required>
+                </div>
+
+            </div>
+
+
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label"
+                    style="font-weight: bolder;margin-left: 25px;">Bio for your yourself</label>
+                <input type="text" class="form-control" id="playerDetailtxtBio" name="playerDetailtxtBio" rows="3"
+                    placeholder="Enter your bio here"
+                    style="width: 90%;margin-top: -5px;margin-left: 25px; height: 100px;"  required></input>
+            </div>
+                
+                    <button type="submit" class="btn btn-primary" style="margin-left: 40%;margin-bottom: 50px;">Save</button>
+                    <button type="submit" class="btn btn-primary" style="margin-left: 5%;margin-bottom: 50px;"
+                formaction="/update-player-details">Update</button>
+                
+            </div>
+            
+        </form>
+    </div>
+
+        <nav class="navbar bg-white" style="margin-top: 100px;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                &copy; Rights Reserved
+            </a>
+        </div>
+    </nav>
+
+</body>
+
+</html>

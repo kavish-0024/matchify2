@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.3/angular.min.js"></script>
+    <title>Matchify</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+        crossorigin="anonymous"></script>
+
+    <script>
+        var mymodule = angular.module("kuchModule", []);
+        mymodule.controller("kuchController", function ($scope, $http) {
+
+            $scope.jsonArray = [];
+            $scope.doFetchAll = function () {
+                var url = "/do-fetch-all-users2";
+
+
+                $http.get(url).then(allGoodFx, someBadFx);
+                function allGoodFx(response) {
+                    //resp in JSON array
+                    //alert(JSON.stringify(response.data));
+                    $scope.jsonArray = response.data;
+                }
+
+                function someBadFx(response) {
+                    alert(JSON.stringify(response.data));
+                }
+            }
+            //=====================
+            $scope.doBlockuser=function(emailid)
+            {
+                var url="/block-user?email="+emailid;
+                $http.get(url).then(allGoodFx,someBadFx);
+                function allGoodFx(response)
+                {
+                    $scope.doFetchAll();
+                }
+                function someBadFx(response)
+                {
+                    alert(JSON.stringify(response.data));
+                }
+            }
+            $scope.doUnBlockuser=function(emailid)
+            {
+                var url="/unblock-user?email="+emailid;
+                $http.get(url).then(allGoodFx,someBadFx);
+                function allGoodFx(response)
+                {
+                    $scope.doFetchAll();
+                }
+                function someBadFx(response)
+                {
+                    alert(JSON.stringify(response.data));
+                }
+            }
+
+        })
+
+    </script>
+                        <script>
+            function showUser()
+            {
+                
+                let activeUser=localStorage.getItem("activeUser");
+                //alert(activeUser)
+                document.getElementById("welcome").innerHTML=activeUser;
+            }
+        </script>
+
+</head>
+
+<body ng-app="kuchModule" ng-controller="kuchController" ng-init="doFetchAll()" onload="showUser()" style="padding-bottom: 56px;">
+        <nav class="navbar bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#" style="color: white;">
+                <img src="./pics/logo.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+                Matchify
+            </a>
+            <div class="me-5" style="color: white;">Welcome <span id="welcome"></span></div>
+        </div>
+    </nav>
+    <div
+        style="background-color:rgb(169, 148, 148); width: 70%;height:100%;padding-top: 20px;border: 2px black solid;border-radius: 10px;margin-left: 15%;margin-top: 100px;">
+        <center>
+            <h1>User Manager</h1>
+        </center>
+
+        <center>
+            <div class="table-responsive" style="padding-left: 20px;padding-right: 20px ;">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Sr No</th>
+                            <th scope="col">User email</th>
+                            <th scope="col">User Type</th>
+                            <th scope="col">Date of signup</th>
+                            <th scope="col">status</th>
+                            <th scope="col">Operations</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                        <tr ng-repeat="obj in jsonArray">
+                            <td>{{$index+1}}</td>
+                            <td>{{obj.emailid}}</td>
+                            <td>{{obj.usertype}}</td>
+                            <td>{{obj.dos}}</td>
+                            <td>{{obj.status}}</td>
+                            <td>
+                                <input type="button" ng-click="doBlockuser(obj.emailid)" class="btn btn-outline-danger" value="Block"
+                                    style="margin-right: 30px;">
+                                <input type="button" ng-click="doUnBlockuser(obj.emailid)" class="btn btn-outline-success" value="Unblock">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+
+        </center>
+        
+        </div>
+            <nav class="navbar bg-white fixed-bottom">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                &copy; Rights Reserved
+            </a>
+        </div>
+    </nav>
+        
+
+</body>
+
+</html>

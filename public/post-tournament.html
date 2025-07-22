@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matchify</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+
+    <script>
+        $(document).ready(function(){
+            $("#tourDetailSaveAjax").click(function(){
+                let obj={
+                    type:"post",
+                    url:"/tournament-register",
+                    data:{
+                        tourDetailtxtEmail:$("#tourDetailtxtEmail").val(),
+                        tourDetailtxtEventname:$("#tourDetailtxtEventname").val(),
+                        tourDetaildateTour:$("#tourDetaildateTour").val(),
+                        tourDetailtimeTour:$("#tourDetailtimeTour").val(),
+                        tourDetailtxtAddress:$("#tourDetailtxtAddress").val(),
+                        tourDetailtxtCity:$("#tourDetailtxtCity").val(),
+                        tourDetailSports:$("#tourDetailSports").val(),
+                        tourDetailnumMinage:$("#tourDetailnumMinage").val(),
+                        tourDetailnumMaxage:$("#tourDetailnumMaxage").val(),
+                        tourDetaildateLast:$("#tourDetaildateLast").val(),
+                        tourDetailtimeLast:$("#tourDetailtimeLast").val(),
+                        tourDetailnumEntry:$("#tourDetailnumEntry").val(),
+                        tourDetailnumPrize:$("#tourDetailnumPrize").val(),
+                        tourDetailtxtContact:$("#tourDetailtxtContact").val()
+                    }
+                }
+                $.ajax(obj).then(
+                    function(response){
+                        alert(response);
+                    }
+                ).fail(function(err){
+                    alert(JSON.stringify(err));
+                })
+            })
+        })
+    </script>
+            <script>
+            function showUser()
+            {
+                
+                let activeUser=localStorage.getItem("activeUser");
+                //alert(activeUser)
+                document.getElementById("welcome").innerHTML=activeUser;
+                document.getElementById("tourDetailtxtEmail").value=activeUser;
+            }
+        </script>
+</head>
+
+<body onload="showUser()">
+
+    <nav class="navbar bg-dark" >
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#" style="color: white;">
+                <img src="./pics/logo.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+                Matchify
+            </a>
+            <div class="me-5" style="color: white;">Welcome <span id="welcome"></span></div>
+        </div>
+    </nav>
+    <br><br>
+
+    </div>
+    <div
+        style="background-color:rgb(169, 148, 148); width:60%;height:100%;margin-left: 20%;padding-top: 20px;border: 2px black solid;border-radius: 10px;">
+        <center>
+            <h2>Tournament Details</h2>
+        </center>
+            <div class="row mb-3" style="padding-left: 20px; padding-right: 20px;">
+                 <label for="orgDetailtxtEmail"
+                    class="form-label" style="font-weight: bolder;margin-top: 40px;margin-left: 5px;">Email
+                    address</label>
+                <input type="text" class="form-control" id="tourDetailtxtEmail" name="tourDetailtxtEmail"
+                    placeholder="name@example.com" style="margin-top: -5px;width: 80%;margin-left: 13px;" readonly>
+            </div>
+
+
+            <div class="row mb-3" style="padding-left: 20px; padding-right: 20px;">
+                <div class="col-md-6"> <label for="orgDetailtxtOrgname" class="form-label"
+                        style="font-weight: bolder;">Event name</label>
+                    <input type="text" class="form-control" id="tourDetailtxtEventname" name="tourDetailtxtEventname"
+                        style="margin-top: -5px;">
+                </div>
+
+                <div class="col-md-3"> <label for="orgDetailtxtRegNo" class="form-label"
+                        style="font-weight: bolder;">Date of event</label>
+                    <input type="date" class="form-control" id="tourDetaildateTour" name="tourDetaildateTour"
+                        style="margin-top: -5px;">
+                </div>
+
+                <div class="col-md-3"> <label for="orgDetailtxtRegNo" class="form-label"
+                        style="font-weight: bolder;">Time</label>
+                    <input type="time" class="form-control" id="tourDetailtimeTour" name="tourDetailtimeTour"
+                        style="margin-top: -5px;">
+                </div>
+            </div>
+
+
+            <div class="row mb-3" style="padding-left: 20px; padding-right: 20px;">
+                <div class="col-md-6"> <label for="orgDetailtxtOrgname" class="form-label"
+                        style="font-weight: bolder;">Location of tournament</label>
+                    <input type="text" class="form-control" id="tourDetailtxtAddress" name="tourDetailtxtAddress"
+                        style="margin-top: -5px;">
+                </div>
+
+
+                <div class="col-md-6"> <label for="orgDetailtxtRegNo" class="form-label"
+                        style="font-weight: bolder;">City</label>
+                    <input type="text" class="form-control" id="tourDetailtxtCity" name="tourDetailtxtCity"
+                        style="margin-top: -5px;">
+                </div>
+            </div>
+
+
+            <div class="row mb-3" style="padding-left: 20px; padding-right: 20px;">
+                <div class="col-md-6">
+                    <label for="orgDetailtxtOrgname" class="form-label" style="font-weight: bolder;">Select the sport</label>
+                    <select class="form-select" id="tourDetailSports" name="tourDetailSports">
+                        <option selected>Choose</option>
+                        <option value="Athletics">Athletics</option>
+                        <option value="Badminton">Badminton</option>
+                        <option value="Basketball">Basketball</option>
+                        <option value="Chess">Chess</option>
+                        <option value="Cricket">Cricket</option>
+                        <option value="Football">Football</option>
+                        <option value="Hockey">Hockey</option>
+                        <option value="Kabaddi">Kabaddi</option>
+                        <option value="Tennis">Tennis</option>
+                        <option value="Volleyball">Volleyball</option>
+                    </select>
+                </div>
+
+                <div class="col-md-3"> <label for="orgDetailtxtRegNo" class="form-label"
+                        style="font-weight: bolder;">Minimum Age</label>
+                    <input type="number" class="form-control" id="tourDetailnumMinage" name="tourDetailnumMinage"
+                        style="margin-top: -5px;">
+                </div>
+
+                <div class="col-md-3"> <label for="orgDetailtxtOrgname" class="form-label"
+                        style="font-weight: bolder;">Maximum Age</label>
+                    <input type="number" class="form-control" id="tourDetailnumMaxage" name="tourDetailnumMaxage" ;
+                        style="margin-top: -5px;">
+                </div>
+            </div>
+
+            <div class="row mb-3" style="padding-left: 20px; padding-right: 20px;">
+                <div class="col-md-3"> <label for="orgDetailtxtOrgname" class="form-label"
+                        style="font-weight: bolder;">Last day of Registration</label>
+                    <input type="date" class="form-control" id="tourDetaildateLast" name="tourDetaildateLast"
+                        style="margin-top: -5px;">
+                </div>
+
+                <div class="col-md-3"> <label for="orgDetailtxtOrgname" class="form-label"
+                        style="font-weight: bolder;">Time of Registration</label>
+                    <input type="time" class="form-control" id="tourDetailtimeLast" name="tourDetailtimeLast"
+                        style="margin-top: -5px;">
+                </div>
+
+                <div class="col-md-3"> <label for="orgDetailtxtRegNo" class="form-label"
+                        style="font-weight: bolder;">Entry fee(In Ruppee)</label>
+                    <input type="number" class="form-control" id="tourDetailnumEntry" name="tourDetailnumEntry"
+                        style="margin-top: -5px;">
+                </div>
+
+                <div class="col-md-3"> <label for="orgDetailtxtOrgname" class="form-label"
+                        style="font-weight: bolder;">Prize pool(In Ruppee)</label>
+                    <input type="number" class="form-control" id="tourDetailnumPrize" name="tourDetailnumPrize" ;
+                        style="margin-top: -5px;">
+                </div>
+            </div>
+
+
+            <div class="row mb-3" style="padding-left: 20px; padding-right: 20px;">
+                <div class="col-md-6"> <label for="orgDetailtxtOrgname" class="form-label"
+                        style="font-weight: bolder;">Contact Details</label>
+                    <input type="text" class="form-control" id="tourDetailtxtContact" name="tourDetailtxtContact"
+                        ;style="margin-top: -5px;">
+                </div>
+            </div>
+
+            <button type="button" id="tourDetailSaveAjax" class="btn btn-primary" style="margin-left: 47.5%;margin-bottom: 20px;">Save</button>
+    </div>
+
+    <nav class="navbar bg-white" style="margin-top: 2px;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                &copy; Rights Reserved
+            </a>
+        </div>
+    </nav>
+
+</body>
+
+</html>

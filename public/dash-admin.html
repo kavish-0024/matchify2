@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matchify</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+                    <script>
+            function showUser()
+            {
+                
+                let activeUser=localStorage.getItem("activeUser");
+                //alert(activeUser)
+                document.getElementById("welcome").innerHTML=activeUser;
+            }
+            //================
+            function doLogout()
+            {
+                localStorage.removeItem("activeUser");
+                location.href="index.html";
+            }
+        </script>
+</head>
+
+<body onload="showUser()">
+    <nav class="navbar bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#" style="color: white;">
+                <img src="./pics/logo.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+                Matchify
+            </a>
+            <div class="me-5" style="color: white;">Welcome <span id="welcome"></span></div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card" style="width: 20rem;margin-top: 60px;height: 500px;">
+                    <img src="./pics/usercontrol.jpeg" class="card-img-top" alt="..." height="315px">
+                    <div class="card-body">
+                        <h5 class="card-title">User Console</h5>
+                        <p class="card-text">You can view your users console here.</p>
+                        <center>
+                            <a href="adminusers-console.html" class="btn btn-primary">Users</a>
+                        </center>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card" style="width: 20rem;margin-top: 60px;height: 500px;">
+                    <img src="./pics/participant.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Players Console</h5>
+                        <p class="card-text">You can view your player console here.</p>
+                        <center>
+                            <a href="adminparticipants-console.html" class="btn btn-primary">Players</a>
+                        </center>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card" style="width: 20rem;margin-top: 60px;height: 500px;">
+                    <img src="./pics/organisers.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Organiser Console</h5>
+                        <p class="card-text">You can view your organiser console here.</p>
+                        <center>
+                            <a href="adminorganisers-console.html" class="btn btn-primary">Organisers</a>
+                        </center>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        
+        <center>
+            <div style="margin-top: 100px;">
+            <button type="button" class="btn btn-danger" onclick="doLogout()">Logout</button>
+            </div>
+        </center>
+    </div>
+
+    <nav class="navbar bg-white" style="margin-top: 0px;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                &copy; Rights Reserved
+            </a>
+        </div>
+    </nav>
+</body>
+
+</html>

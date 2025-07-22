@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matchify</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+    <script>
+        $(document).ready(function () {
+            $("#signupAjax").click(function () {
+                let obj = {
+                    type: "post",
+                    url: "/signup",
+                    data: {
+                        SignuptxtEmail: $("#SignuptxtEmail").val(),
+                        SignuptxtPwd: $("#SignuptxtPwd").val(),
+                        SignupinputUserType: $("#SignupinputUserType").val()
+                    }
+
+                }
+                $.ajax(obj).then(
+                    function (response) {
+                        alert(response);
+                    }
+                ).fail(function (err) {
+                    alert(JSON.stringify(err));
+                });
+            })
+
+            $("#loginAjax").click(function () {
+                let obj = {
+                    type: "get",
+                    url: "/login",
+                    data: {
+                        LogintxtEmail: $("#LogintxtEmail").val(),
+                        LogintxtPwd: $("#LogintxtPwd").val()
+                    }
+                }
+                $.ajax(obj).then(
+                    function (response) {
+                        if (response == "Blocked")
+                            alert("Sorry,You are blocked");
+                        else if (response == "Invalid")
+                            alert("Invalid emailid or password");
+                        else {
+                            if (response == "Organizer") {
+                                localStorage.setItem("activeUser", $("#LogintxtEmail").val());
+                                location.href = "dash-organiser.html";
+                            }
+                            else if (response == "Participant") {
+                                localStorage.setItem("activeUser", $("#LogintxtEmail").val());
+                                location.href = "dash-player.html";
+                            }
+                            else if (response == "Admin") {
+                                localStorage.setItem("activeUser", $("#LogintxtEmail").val());
+                                location.href = "dash-admin.html";
+                            }
+                        }
+
+                    }
+                ).fail(function (err) {
+                    alert(err.message);
+                });
+            })
+
+
+        })
+    </script>
+    <style>
+        .ok {
+            color: green;
+        }
+
+        .notok {
+            color: red;
+        }
+    </style>
+
+    <!-- Script for validations -->
+    <script>
+        $(document).ready(function () {
+
+            //==VAlidation for signup email=====
+            $("#SignuptxtEmail").blur(function () {
+                let email = $(this).val();
+                email = email.trim()// removes space from front and back
+                let regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+
+                if (email == "") {
+                    $("#SignuptxtEmailErr").html("Please enter a email id").addClass("notok").removeClass("ok");
+                    $(this).focus();
+                }
+                else if (regex.test(email) == false) {
+                    $("#SignuptxtEmailErr").html("Please enter a valid email id").addClass("notok").removeClass("ok");
+                    $(this).focus();
+                }
+                else
+                    $("#SignuptxtEmailErr").html("Valid Email").addClass("ok").removeClass("notok");
+
+            })
+
+            //============VAlidation for signup password
+            $("#SignuptxtPwd").blur(function () {
+                let regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
+                let pwd = $(this).val();
+                pwd = pwd.trim();
+                if (regex.test(pwd) == true) {
+                    $("#SignuptxtPwdErr").html("Valid Password").addClass("ok").removeClass("notok");
+                    $(this).focus();
+                }
+                else {
+                    $("#SignuptxtPwdErr").html("Please Enter a valid password").addClass("notok").removeClass("ok");
+                    $(this).focus();
+                }
+            })
+
+            //==VAlidation for Login email=====
+            $("#LogintxtEmail").blur(function () {
+                let email = $(this).val();
+                email = email.trim()// removes space from front and back
+                let regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+
+                if (email == "") {
+                    $("#LogintxtEmailErr").html("Please enter a email id").addClass("notok").removeClass("ok");
+                    $(this).focus();
+                }
+                else if (regex.test(email) == false) {
+                    $("#LogintxtEmailErr").html("Please enter a valid email id").addClass("notok").removeClass("ok");
+                    $(this).focus();
+                }
+                else
+                    $("#LogintxtEmailErr").html("Valid Email").addClass("ok").removeClass("notok");
+
+            })
+
+            //============VAlidation for login password
+            $("#LogintxtPwd").blur(function () {
+                let regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
+                let pwd = $(this).val();
+                pwd = pwd.trim();
+                if (regex.test(pwd) == true) {
+                    $("#LogintxtPwdErr").html("Valid Password").addClass("ok").removeClass("notok");
+                    $(this).focus();
+                }
+                else {
+                    $("#LogintxtPwdErr").html("Please Enter a valid password").addClass("notok").removeClass("ok");
+                    $(this).focus();
+                }
+            })
+            //=======================EYE IN SIGNUP=========
+            $("#eye1").click(function(){
+                let txt=$("#SignuptxtPwd").prop("type");
+                
+                if(txt=="password")
+                {
+                    $("#SignuptxtPwd").prop("type","text");
+                    $("#eye1").removeClass("fa-eye").addClass("fa-eye-slash");
+                }
+                else
+                {
+                    $("#SignuptxtPwd").prop("type","password");
+                    $("#eye1").removeClass("fa-eye-slash").addClass("fa-eye");
+                }
+
+            })
+            //=======================EYE IN LOGIN=========
+            $("#eye2").click(function(){
+                let txt=$("#LogintxtPwd").prop("type");
+                
+                if(txt=="password")
+                {
+                    $("#LogintxtPwd").prop("type","text");
+                    $("#eye2").removeClass("fa-eye").addClass("fa-eye-slash");
+                }
+                else
+                {
+                    $("#LogintxtPwd").prop("type","password");
+                    $("#eye2").removeClass("fa-eye-slash").addClass("fa-eye");
+                }
+            })
+
+
+        })
+    </script>
+    <style>
+        .hero-section {
+            background-color: #212529;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.pexels.com/photos/2422290/pexels-photo-2422290.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+
+            height: 80vh;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        /* Our services */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+            font-weight: 600;
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            color: var(--bs-primary);
+        }
+        /* Mission */
+                /* Custom CSS for the section */
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+            font-weight: 600;
+        }
+        
+        .mission-image {
+            object-fit: cover;
+            height: 100%;
+            border-radius: .5rem;
+        }
+    </style>
+</head>
+
+<body style="font-family: 'Poppins', sans-serif;">
+    <!-- =================================== NAVBAR ========================================= -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="#home">
+                <img src="./pics/logo.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+                Matchify
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#services">Our Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#mission">Our Mission </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#developers">Developer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Reach Us</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <button class="btn btn-outline-light me-2" data-bs-toggle="modal"
+                        data-bs-target="#divSignup">Signup</button>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#divLogin">Login</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- <div class="col-md-3 text-center">
+                <button type="button" class="btn btn-info">
+                    <a href="dash-organiser.html" style="color: black; text-decoration: none;">Organiser Dashboard</a>
+                </button>
+            </div>
+            <div class="col-md-3 text-center">
+                <button type="button" class="btn btn-info">
+                    <a href="dash-player.html" style="color: black; text-decoration: none;">Player Dashboard</a>
+                </button>
+            </div>
+            <div class="row" style="margin-top: 50px;">
+            <div class="col-md-4 text-center offset-md-4">
+                <button type="button" class="btn btn-info">
+                    <a href="dash-admin.html" style="color: black; text-decoration: none;">Admin's Dashboard</a>
+                </button>
+            </div>
+            </div> -->
+
+
+    <!-- HERO SECTION -->
+    <header class="hero-section" id="home">
+        <div class="container">
+            <h1 class="display-4"><b>Organize and Participate Seamlessly</b></h1>
+            <p class="lead">Matchify is your all-in-one platform for creating, managing, and joining events and
+                tournaments.
+            </p>
+            <a href="#services" class="btn btn-primary btn-lg mt-3">Learn More</a>
+        </div>
+    </header>
+
+
+    <!-- =================================== OUR SERVICES SECTION ========================================= -->
+    <section id="services" class="py-5">
+        <div class="container">
+            <h2 class="section-title">Our Services</h2>
+            <div class="row text-center g-4">
+
+                <!-- Service Card 1: Event Creation -->
+                <div class="col-md-4">
+                    <div class="card h-100 p-3 shadow-sm border-0 ">
+                        <div class="card-body">
+                            <i class="bi bi-calendar2-event service-icon mb-3"></i>
+                            <h3 class="card-title h4">Event Creation</h3>
+                            <p class="card-text">Organizers can easily set up and customize events, and
+                                manage schedules all in one place.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service Card 2: Participant Management -->
+                <div class="col-md-4">
+                    <div class="card h-100 p-3 shadow-sm border-0">
+                        <div class="card-body">
+                            <i class="bi bi-person-check service-icon mb-3"></i>
+                            <h3 class="card-title h4">Participant Management</h3>
+                            <p class="card-text">Effortlessly track registrations, communicate with participants, and
+                                manage your posted tournaments.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service Card 3: Discover & Compete ( for Players) -->
+                <div class="col-md-4">
+                    <div class="card h-100 p-3 shadow-sm border-0">
+                        <div class="card-body">
+                            <i class="bi bi-trophy service-icon mb-3"></i>
+                            <h3 class="card-title h4">Discover & Compete</h3>
+                            <p class="card-text">Browse a wide range of tournaments, find events that match your skills,
+                                and register to compete.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    
+    <!-- =================================== OUR MISSION SECTION ========================================= -->
+    <section id="mission" class="py-5">
+        <div class="container">
+            <h2 class="section-title">Our Mission</h2>
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <img src="https://images.pexels.com/photos/163452/basketball-dunk-blue-game-163452.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="img-fluid mission-image shadow" alt="A basketball player dunking a ball, representing sports spirit.">
+                </div>
+                <div class="col-lg-6">
+                    <h3>Fostering Community Through Competition</h3>
+                    <p class="lead text-muted">Our mission is to break down barriers and make sports accessible to everyone. We believe in the power of friendly competition to build character, foster teamwork, and create lasting connections within the community.</p>
+                    <p>Matchify is the digital bridge for that mission. By providing a seamless, centralized platform for organizers and players, we empower local communities to come together, celebrate sportsmanship, and share their passion for the game.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+        <!-- =================================== MEET DEVELOPERS SECTION ========================================= -->
+    <section id="developers" class="py-5">
+        <div class="container">
+            <h2 class="section-title">Meet The Team</h2>
+            <div class="row g-4 justify-content-center">
+                
+                <!-- Developer 1 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card dev-card border-0 text-center shadow-sm h-100">
+                        <div class="card-body d-flex flex-column align-items-center">
+                            <p class="text-muted"><strong>Made by</strong></p>
+                            <img src="./pics/profilepicicon.jpg" alt="Developer 1" class="rounded-circle mt-n5 mb-3" style="width: 200px;height: 200px;" >
+                            <h5 class="card-title">Kavish Garg</h5>
+                            <p>Dr B R Ambedkar National Institute of Technology Jalandhar</p>
+                            <p>Electronics and VLSI</p>
+                            <p>2024-2028</p>
+                            <div class="mt-auto">
+                                <a href="https://www.instagram.com/kavish_0024?igsh=MWM4dDduYWgwbnZreQ==" class="text-dark mx-1"><i class="bi bi-instagram"></i></a>
+                                <a href="https://www.linkedin.com/in/kavish0024?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="text-dark mx-1"><i class="bi bi-linkedin"></i></a>
+                                <a href="https://github.com/kavish-0024" class="text-dark mx-1"><i class="bi bi-github"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Developer 2 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card dev-card border-0 text-center shadow-sm h-100">
+                        <div class="card-body d-flex flex-column align-items-center">
+                            <p class="text-muted"><strong>Under the guidance of</strong></p>
+                             <img src=""  alt="Developer 2" class="rounded-circle mt-n5 mb-3" style="width: 200px;height: 200px;" >
+                            <h5 class="card-title">Rajesh Bansal</h5>
+                            <p>Author of Real Java</p>
+                            <p>Founder of Banglore Computer Education</p>
+                            <a href="https://www.realjavaonline.com/" style="text-decoration: none;color: black;"><p>Website Link-www.realjavaonline.com</p></a>
+                            <div class="mt-auto">
+                                <a href="https://www.instagram.com/author_rajesh_bansal?igsh=ZjdiOThid281ajBh" class="text-dark mx-1"><i class="bi bi-instagram"></i></a>
+                                <a href="https://www.linkedin.com/in/rajesh-bansal-8a87251a/" class="text-dark mx-1"><i class="bi bi-linkedin"></i></a>
+                                <a href="https://x.com/banglorecompute" class="text-dark mx-1"><i class="bi bi-twitter-x"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- =================================== REACH US SECTION ========================================= -->
+    <section id="contact" class="py-5">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="row">
+                <!-- Left Column: Contact Form -->
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <form>
+                        <div class="mb-3">
+                            <label for="contactName" class="form-label">Your Name</label>
+                            <input type="text" class="form-control" id="contactName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="contactEmail" class="form-label">Your Email</label>
+                            <input type="email" class="form-control" id="contactEmail" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="contactMessage" class="form-label">Message</label>
+                            <textarea class="form-control" id="contactMessage" rows="12" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+
+                <!-- Right Column: Contact Info & Map -->
+                <div class="col-lg-6">
+                    <h4>Contact Information</h4>
+                    <p>Have questions? We'd love to hear from you. Reach out to us through any of the channels below.</p>
+                    <ul class="list-unstyled">
+                        <li class="mb-3">
+                            <i class="bi bi-geo-alt-fill text-primary me-2"></i>
+                            Address
+                        </li>
+                        <li class="mb-3">
+                            <i class="bi bi-telephone-fill text-primary me-2"></i>
+                            Phone
+                        </li>
+                        <li class="mb-3">
+                            <i class="bi bi-envelope-fill text-primary me-2"></i>
+                            Mail
+                        </li>
+                    </ul>
+                    <!-- Google Maps-->
+                    <div class="ratio ratio-16x9">
+                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3405.662272085347!2d75.5358439!3d31.395874600000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391a51d30c180edf%3A0x5b7633718d17ef33!2sDr%20B%20R%20Ambedkar%20National%20Institute%20of%20Technology%20Jalandhar!5e0!3m2!1sen!2sin!4v1752999919032!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+
+    <nav class="navbar bg-white fixed-bottom">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                 &copy; 2025 Matchify. All Rights Reserved.
+            </a>
+        </div>
+    </nav>
+
+    <!-- ===================================SIGNUP MODAL========================================= -->
+    <div class="modal fade" tabindex="-1" id="divSignup">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title">Signup Here</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                    <form id="signupForm">
+                        <div class="mb-3">
+                            <label for="txtEmail" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="SignuptxtEmail" name="SignuptxtEmail"
+                                aria-describedby="emailHelp" autofocus>
+                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                            <div id="SignuptxtEmailErr"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtPwd" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="SignuptxtPwd" name="SignuptxtPwd">
+                            <i class="fa-solid fa-eye fa-bounce" id="eye1"></i>
+                            <div id="SignuptxtPwdErr"></div>
+                        </div>
+
+                        <div class="mb-3 form-check">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="inputUserType">User Type</label>
+                                </div>
+                                <select class="form-select" id="SignupinputUserType" name="SigninputUserType">
+                                    <option value="" selected>Choose...</option>
+                                    <option value="Organizer">Organizer</option>
+                                    <option value="Participant">Participant</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </form>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="signupAjax">Signup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- =================================LOGIN MODAL========================================== -->
+    <div class="modal fade" tabindex="-1" id="divLogin">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title">Login Here</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                    <form id="signupForm">
+                        <div class="mb-3">
+                            <label for="txtEmail" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="LogintxtEmail" name="LogintxtEmail"
+                                aria-describedby="emailHelp" autofocus>
+                            <div id="LogintxtEmailErr"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtPwd" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="LogintxtPwd" name="LogintxtPwd">
+                            <i class="fa-solid fa-eye fa-bounce" id="eye2"></i>
+                            <div id="LogintxtPwdErr"></div>
+                        </div>
+                    </form>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="loginAjax">Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</html>
