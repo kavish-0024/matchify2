@@ -118,13 +118,13 @@
                                 <tr ng-repeat="obj in jsonArray">
                                     <td>{{$index+1}}</td>
                                     <td>{{obj.event}}</td>
-                                    <td>{{obj.doe}}</td>
+                                    <td>{{obj.doe | date:'yyyy-MM-dd'}}</td>
                                     <td>{{obj.toe}}</td>
                                     <td>{{obj.address}}</td>
                                     <td>{{obj.city}}</td>
                                     <td>{{obj.sports}}</td>
                                     <td>{{obj.minage}}-{{obj.maxage}}</td>
-                                    <td>{{obj.lastdate}}</td>
+                                    <td>{{obj.lastdate | date:'yyyy-MM-dd'}}</td>
                                     <td>{{obj.fee}}</td>
                                     <td>{{obj.prize}}</td>
                                     <td>{{obj.contact}}</td>
