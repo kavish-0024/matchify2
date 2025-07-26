@@ -1,9 +1,8 @@
-require("dotenv").config(); 
 var express = require("express");
 var fileuploader = require("express-fileupload");
 var cloudinary = require("cloudinary").v2;
 var mysql2 = require("mysql2");
-var fs = require("fs");
+require("dotenv").config(); 
 var app = express();
 app.use(fileuploader());
 app.use(express.urlencoded(true));
