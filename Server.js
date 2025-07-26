@@ -1,3 +1,4 @@
+require("dotenv").config(); 
 var express = require("express");
 var fileuploader = require("express-fileupload");
 var cloudinary = require("cloudinary").v2;
@@ -8,7 +9,7 @@ app.use(fileuploader());
 app.use(express.urlencoded(true));
 
 const { GoogleGenerativeAI } = require("@google/generative-ai");
-const genAI = new GoogleGenerativeAI("AIzaSyDabHn1h3_540f5XQrIAyCjgEO6VzCCK74");
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
 app.listen(3000, function () {
@@ -24,16 +25,15 @@ app.get("/",function(req,resp){
 
 //====================Cloudinary==================
 
- cloudinary.config({ 
-            cloud_name: 'dswctu5qk', 
-            api_key: '982573238233271', 
-            api_secret: 'qp_vRIiVk7IY7eN_YfbzEXmDBqg' // Click 'View API Keys' above to copy your API secret
-        });
+cloudinary.config({ 
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
+    api_key: process.env.CLOUDINARY_API_KEY, 
+    api_secret: process.env.CLOUDINARY_API_SECRET
+});
 
 
 //=====AIven====
-let dbConfig =
-  "mysql://avnadmin:AVNS_tGDVN6rIvhUHu6lS5Wv@mysql-2af96cd6-kavishl-ae31.c.aivencloud.com:15785/defaultdb";
+let dbConfig = process.env.DB_URL;
 
 let mySqlVen = mysql2.createConnection(dbConfig);
 mySqlVen.connect(function (err) {
