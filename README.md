@@ -36,6 +36,13 @@ Player Dashboard<br>
 ⚙️ Account Settings: Includes a modal to securely change your account password.<br>
 🔑 Secure Logout: Simple and secure one-click logout functionality for both user types.<br>
 
+Admin Dashboard<br>
+👑 Centralized Control: A top-level dashboard for site administrators.<br>
+👥 User Management Console: A comprehensive console to view and manage all users on the platform.<br>
+🤸 Player Console: A dedicated view to manage all participant/player accounts.<br>
+🏟️ Organizer Console: A dedicated view to manage all organizer accounts.<br>
+🔑 Secure Logout: Simple and secure one-click logout functionality across all dashboards.<br>
+
 ---
 
 🛠️ Tech Stack & Dependencies
@@ -59,12 +66,14 @@ This project is built with standard web technologies and relies on CDNs for its 
 
 The project has a very simple and intuitive file structure.
 
-
-/Matchify-Project <br>
-│
+Matchify-Project <br>
 ├── 📄 index.html<br>
+├── 📄 dash-admin.html<br>
 ├── 📄 dash-organiser.html<br>
 ├── 📄 dash-player.html<br>
+├── 📄 adminusers-console.html<br>
+├── 📄 adminparticipants-console.html<br>
+├── 📄 adminorganisers-console.html<br>
 ├── 📄 org-details.html<br>
 ├── 📄 post-tournament.html<br>
 ├── 📄 tournament-manager.html<br>
@@ -72,8 +81,6 @@ The project has a very simple and intuitive file structure.
 ├── 📄 tournament-finder.html<br>
 ├── 📄 README.md<br>
 └── 📁 /pics/<br>
-
-
 
 ---
 
