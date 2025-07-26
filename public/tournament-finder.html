@@ -181,7 +181,7 @@
 
         
         <p>
-            <b>Date of event:</b> {{onRecord.doe}}
+            <b>Date of event:</b> {{onRecord.doe | date:'yyyy-MM-dd'}}
         </p>
       
 
@@ -217,7 +217,7 @@
 
       
         <p>
-            <b>Last date to register:</b> {{onRecord.lastdate}}
+            <b>Last date to register:</b> {{onRecord.doe | date:'yyyy-MM-dd'}}
         </p>
       
 
