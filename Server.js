@@ -396,7 +396,7 @@ app.post("/player-details",async function (req,resp)
     }
   )
 })
-//====Player 
+//====Player =======================
 app.get("/chk-playerdetail-email",function(req,resp)
 {
 
@@ -434,6 +434,9 @@ app.get("/playerdetail-search",function(req,resp)
       resp.send(err.message);
   })
 })
+//============================UPDATE THE PLAYER DETAIL===========================
+
+
 //=============================GETIING ON USER CONSOLE=================
 
 app.get("/do-fetch-all-users2",function(req,resp)
